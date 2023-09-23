@@ -1,0 +1,27 @@
+# permissions for end users to view minecrafts.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: minecraft-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: smooth-mc-operator
+    app.kubernetes.io/part-of: smooth-mc-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: minecraft-viewer-role
+rules:
+- apiGroups:
+  - charts.minecraft.net
+  resources:
+  - minecrafts
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - charts.minecraft.net
+  resources:
+  - minecrafts/status
+  verbs:
+  - get

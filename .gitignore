@@ -1,0 +1,15 @@
+# terraform exe
+*.exe
+
+# my private helper files
+mydocs.md
+my-terraform-actions.bat
+
+# generated ssh keys
+*.pem
+
+# generated vs code config
+vscode_ssh_config
+
+# testing
+tmp/

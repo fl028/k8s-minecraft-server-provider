@@ -1,0 +1,27 @@
+apiVersion: charts.minecraft.net/v1alpha1
+kind: Minecraft
+metadata:
+  name: minecraft-sample
+spec:
+  # Default values copied from <project_dir>/helm-charts/minecraft/values.yaml
+  minecraft:
+    exposed_port: 30001
+    gamemode: survival
+    internal_port: 25565
+    motd: my-mc-pod-1
+  node:
+    hostname: vm1
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 3Gi
+    requests:
+      cpu: 1000m
+      memory: 2Gi
+  serviceAccount:
+    create: true
+  volume:
+    path: /tmp/workspace/minecraft-data
+    storage: 3Gi
+  
+  

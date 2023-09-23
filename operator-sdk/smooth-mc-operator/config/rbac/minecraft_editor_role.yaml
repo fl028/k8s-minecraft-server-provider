@@ -1,0 +1,31 @@
+# permissions for end users to edit minecrafts.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: minecraft-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: smooth-mc-operator
+    app.kubernetes.io/part-of: smooth-mc-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: minecraft-editor-role
+rules:
+- apiGroups:
+  - charts.minecraft.net
+  resources:
+  - minecrafts
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - charts.minecraft.net
+  resources:
+  - minecrafts/status
+  verbs:
+  - get

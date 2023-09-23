@@ -1,0 +1,20 @@
+@startuml
+package "Client" #80c7e0 {
+
+}
+
+package "Terraform infrastructure (Azure VM)" {
+  package "Kubernetes (K3s)"{
+    package "Kubernetes operator" #DDDDDD {
+    note "Minecraft CRD" as N3  
+   }
+    package "Helm deployment (REST API)" #DDDDDD {
+    note "Python Fastapi with Swagger doc" as N1
+    note "Python Kubernetes library to communicate to the cluster" as N2
+  }
+ }
+}
+
+"Client" -right-> "Helm deployment (REST API)"
+N2 -right-> "Kubernetes operator"
+@enduml

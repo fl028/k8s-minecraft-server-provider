@@ -1,0 +1,61 @@
+# docker run -d -it -v /path/on/host:/data -e EULA=TRUE -p 25565:25565 --name mc itzg/minecraft-server
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ printf "minecraft-server-%s" .Values.minecraft.motd }}
+  labels:
+    app: {{ printf "minecraft-server-%s" .Values.minecraft.motd }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ printf "minecraft-server-%s" .Values.minecraft.motd }}
+  template:
+    metadata:
+      labels:
+        app: {{ printf "minecraft-server-%s" .Values.minecraft.motd }}
+    spec:
+      volumes:
+      - name: {{ printf "minecraft-data-%s" .Values.minecraft.motd }}
+        persistentVolumeClaim:
+          claimName: {{ printf "minecraft-data-pvc-%s" .Values.minecraft.motd }}
+      containers:
+      - name: {{ printf "minecraft-server-%s" .Values.minecraft.motd }}
+        image: itzg/minecraft-server:latest
+        resources:
+          limits:
+            memory: {{ .Values.resources.limits.memory }}
+          requests:
+            memory: {{ .Values.resources.requests.memory }}
+        env:
+          - name:  EULA
+            value: 'TRUE'
+          - name: MODE
+            value: {{ .Values.minecraft.gamemode }}
+          - name: MOTD
+            value: {{ .Values.minecraft.motd }}
+          - name: ALLOW_FLIGHT
+            value: 'TRUE'
+        ports:
+        - containerPort: {{ .Values.minecraft.internal_port }}
+          name: minecraft
+        volumeMounts:
+          - name:  {{ printf "minecraft-data-%s" .Values.minecraft.motd }}
+            mountPath:  /data
+            subPath: {{ .Values.minecraft.motd }}
+        readinessProbe:
+          exec:
+            command:
+            - mcstatus
+            - 127.0.0.1
+            - ping
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        livenessProbe:
+          exec:
+            command:
+            - mcstatus
+            - 127.0.0.1
+            - ping
+          initialDelaySeconds: 30
+          periodSeconds: 30

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.api.name }}-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.api.name }}-app
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.api.name }}-app
+    spec:
+      containers:
+        - name: {{ .Values.api.name }}-app
+          image: localhost:5000/mc-provider-api-container:latest
+          ports:
+            - name: http
+              containerPort: {{ .Values.api.internal_port }}
+            - name: kubectl
+              containerPort: 6443
+      serviceAccountName: {{ .Values.api.name }}-serviceaccount

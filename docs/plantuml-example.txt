@@ -1,0 +1,29 @@
+@startuml
+package "Client" #80c7e0 {
+
+}
+
+package "Minecraft client" #59b571 {
+
+}
+
+package "Terraform infrastructure (Azure VM)" {
+  package "Kubernetes (K3s)"{
+    package "Kubernetes operator" #DDDDDD {
+    note "Minecraft CRD" as N3  
+   }
+    package "Helm deployment (REST API)" #DDDDDD {
+    note "Python Fastapi with Swagger doc" as N1
+    note "Python Kubernetes library to communicate to the cluster" as N2
+  }
+  package "Minecraft server pod" #59b571 { 
+ }
+}
+
+"Client" -right-> "Helm deployment (REST API)"  : Port 30000
+N2 -right-> "Kubernetes operator"
+"Client" -[hidden]- "Minecraft client"
+N3 -down-> "Minecraft server pod"
+N3 -[hidden]- "Minecraft server pod"
+"Minecraft client" -right-> "Minecraft server pod" :  Port 30001
+@enduml
