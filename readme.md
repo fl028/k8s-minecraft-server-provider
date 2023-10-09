@@ -215,19 +215,19 @@ The [Minecraft Custom Resource (CR)](operator-sdk/smooth-mc-operator/config/samp
 The CRD has been created based on the helm chart in the [helm-charts/minecraft](operator-sdk/smooth-mc-operator/helm-charts/minecraft/) folder.
 
 
-1. [chart.yaml](operator-sdk/smooth-mc-operator/helm-charts/minecraft/chart.yaml): This file contains metadata about the Helm chart, including its name, version, and app description.
+1. [Chart.yaml](operator-sdk/smooth-mc-operator/helm-charts/minecraft/Chart.yaml): This file contains metadata about the Helm chart, including its name, version, and app description.
 
-2. [values.yaml](operator-sdk/smooth-mc-operator/helm-charts/minecraft//values.yaml): The values file defines configurable parameters for the Minecraft server deployment, such as game mode, MOTD (Message of the Day), resource limits, and more.
+2. [values.yaml](operator-sdk/smooth-mc-operator/helm-charts/minecraft/values.yaml): The values file defines configurable parameters for the Minecraft server deployment, such as game mode, MOTD (Message of the Day), resource limits, and more.
 
-3. [deployment.yaml](operator-sdk/smooth-mc-operator/helm-charts/minecraft//deployment.yaml): This Kubernetes Deployment resource definition is responsible for running the Minecraft server container. It configures various aspects of the container, such as resources, environment variables, and volume mounts. The foundation of the chart is the docker container [itzg/minecraft-server](https://hub.docker.com/r/itzg/minecraft-server).
+3. [deployment.yaml](operator-sdk/smooth-mc-operator/helm-charts/minecraft/templates/deployment.yaml): This Kubernetes Deployment resource definition is responsible for running the Minecraft server container. It configures various aspects of the container, such as resources, environment variables, and volume mounts. The foundation of the chart is the docker container [itzg/minecraft-server](https://hub.docker.com/r/itzg/minecraft-server).
 
-4. [service-nodeport.yaml](operator-sdk/smooth-mc-operator/helm-charts/minecraft//service-nodeport.yaml): This Kubernetes Service resource definition exposes the Minecraft server using a NodePort service type, allowing external access to the server.
+4. [service-nodeport.yaml](operator-sdk/smooth-mc-operator/helm-charts/minecraft/templates/service-nodeport.yaml): This Kubernetes Service resource definition exposes the Minecraft server using a NodePort service type, allowing external access to the server.
 
-5. [serviceaccount.yaml](operator-sdk/smooth-mc-operator/helm-charts/minecraft//serviceaccount.yaml): This file defines a Kubernetes ServiceAccount resource, which can be created if specified in the values. It is used to manage permissions and access control for the Minecraft server pods.
+5. [serviceaccount.yaml](operator-sdk/smooth-mc-operator/helm-charts/minecraft/templates/serviceaccount.yaml): This file defines a Kubernetes ServiceAccount resource, which can be created if specified in the values. It is used to manage permissions and access control for the Minecraft server pods.
 
-6. [volume-claim.yaml](operator-sdk/smooth-mc-operator/helm-charts/minecraft//volume-claim.yaml): This Kubernetes PersistentVolumeClaim (PVC) resource definition defines the storage requirements for the Minecraft server data. It specifies the storage class, access modes, and requested storage size.
+6. [volume-claim.yaml](operator-sdk/smooth-mc-operator/helm-charts/minecraft/templates/volume-claim.yaml): This Kubernetes PersistentVolumeClaim (PVC) resource definition defines the storage requirements for the Minecraft server data. It specifies the storage class, access modes, and requested storage size.
 
-7. [volume.yaml](operator-sdk/smooth-mc-operator/helm-charts/minecraft//volume.yaml):  This Kubernetes PersistentVolume (PV) resource definition defines the details of the persistent storage for the Minecraft server. It specifies the capacity, access mode, and local path on the node.
+7. [volume.yaml](operator-sdk/smooth-mc-operator/helm-charts/minecraft/templates/volume.yaml):  This Kubernetes PersistentVolume (PV) resource definition defines the details of the persistent storage for the Minecraft server. It specifies the capacity, access mode, and local path on the node.
 
 
 ### REST API
